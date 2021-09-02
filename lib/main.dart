@@ -55,6 +55,9 @@ class _QuizPageState extends State<QuizPage> {
           child: Padding(
             padding: EdgeInsets.all(15.0),
             child: TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.green,
+              ),
               child: Text(
                 'Verdadeiro',
                 style: TextStyle(
@@ -64,6 +67,26 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 print('Verdadeiro foi pressionado.');
+              },
+            ),
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.all(15.0),
+            child: TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.red,
+              ),
+              child: Text(
+                'Falso',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                ),
+              ),
+              onPressed: () {
+                print('Falso foi pressionado.');
               },
             ),
           ),
