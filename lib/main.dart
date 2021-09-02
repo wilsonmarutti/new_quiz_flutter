@@ -41,12 +41,14 @@ class _QuizPageState extends State<QuizPage> {
           flex: 5,
           child: Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Text(
-              'Aqui virá o texto da pergunta.',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 20.0,
-                color: Colors.white,
+            child: Center(
+              child: Text(
+                'Aqui virá o texto da pergunta.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 25.0,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
@@ -89,6 +91,25 @@ class _QuizPageState extends State<QuizPage> {
                 print('Falso foi pressionado.');
               },
             ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            children: [
+              Icon(
+                Icons.check,
+                color: Colors.green,
+              ),
+              Icon(
+                Icons.close,
+                color: Colors.red,
+              ),
+              Icon(
+                Icons.close,
+                color: Colors.red,
+              ),
+            ],
           ),
         ),
       ],
