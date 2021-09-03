@@ -31,6 +31,14 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  List<Icon> scoreKeeper = [];
+  List<String> questions = [
+    'Alguns gatos são alérgicos a humanos',
+    'É possível fazer com que uma vaca suba escadas, mas não descê-las.',
+    'Aproximadamente um quarto dos ossos humanos estão nos pés.',
+  ];
+  int questionNumber = 0;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -43,7 +51,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'Aqui virá o texto da pergunta.',
+                questions[questionNumber],
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -68,6 +76,16 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
+                setState(() {
+                  questionNumber++;
+                  print(questionNumber);
+                  scoreKeeper.add(
+                    Icon(
+                      Icons.check,
+                      color: Colors.green,
+                    ),
+                  );
+                });
                 print('Verdadeiro foi pressionado.');
               },
             ),
@@ -88,6 +106,16 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
+                setState(() {
+                  questionNumber++;
+                  print(questionNumber);
+                  scoreKeeper.add(
+                    Icon(
+                      Icons.close,
+                      color: Colors.red,
+                    ),
+                  );
+                });
                 print('Falso foi pressionado.');
               },
             ),
@@ -96,20 +124,7 @@ class _QuizPageState extends State<QuizPage> {
         Padding(
           padding: const EdgeInsets.all(10.0),
           child: Row(
-            children: [
-              Icon(
-                Icons.check,
-                color: Colors.green,
-              ),
-              Icon(
-                Icons.close,
-                color: Colors.red,
-              ),
-              Icon(
-                Icons.close,
-                color: Colors.red,
-              ),
-            ],
+            children: scoreKeeper,
           ),
         ),
       ],
