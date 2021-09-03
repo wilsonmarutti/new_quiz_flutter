@@ -1,7 +1,9 @@
 import 'package:quiz_flutter/question.dart';
 
 class QuizBrain {
-  final List<Question> questionBank = [
+  int _questionNumber = 0;
+
+  final List<Question> _questionBank = [
     Question('Alguns gatos são alérgicos a humanos', true),
     Question(
         'É possível fazer com que uma vaca suba escadas, mas não descê-las.',
@@ -31,4 +33,26 @@ class QuizBrain {
         'Na Virginia do Oeste, EUA, se você atropelar um animal com um carro, por acidente, você pode levá-lo para casa e comê-lo.',
         true),
   ];
+
+  String getQuestionText() {
+    return _questionBank[_questionNumber].text;
+  }
+
+  bool getQuestionAnswer() {
+    return _questionBank[_questionNumber].answer;
+  }
+
+  void nextQuestion() {
+    if (_questionNumber < _questionBank.length - 1) {
+      _questionNumber++;
+    }
+  }
+
+  bool isFinished() {
+    return _questionNumber == _questionBank.length - 1;
+  }
+
+  void reset() {
+    _questionNumber = 0;
+  }
 }

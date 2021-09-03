@@ -1,6 +1,6 @@
 class Question {
-  String text;
-  bool answer;
+  final String text;
+  final bool answer;
 
   Question(this.text, this.answer);
 }

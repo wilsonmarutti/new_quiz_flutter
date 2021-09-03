@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_flutter/quiz_brain.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 void main() {
   runApp(Quiz());
@@ -36,8 +37,6 @@ class _QuizPageState extends State<QuizPage> {
 
   List<Icon> scoreKeeper = [];
 
-  int questionNumber = 0;
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -50,7 +49,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizBrain.questionBank[questionNumber].text,
+                quizBrain.getQuestionText(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -75,17 +74,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                setState(() {
-                  bool correctAnswer =
-                      quizBrain.questionBank[questionNumber].answer;
-                  if (correctAnswer == true) {
-                    print('Acertou!');
-                  } else {
-                    print('Errou!');
-                  }
-                  questionNumber++;
-                  print(questionNumber);
-                });
+                checkAnswer(true);
               },
             ),
           ),
@@ -105,17 +94,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                setState(() {
-                  bool correctAnswer =
-                      quizBrain.questionBank[questionNumber].answer;
-                  if (correctAnswer == false) {
-                    print('Acertou!');
-                  } else {
-                    print('Errou!');
-                  }
-                  questionNumber++;
-                  print(questionNumber);
-                });
+                checkAnswer(false);
               },
             ),
           ),
@@ -128,5 +107,56 @@ class _QuizPageState extends State<QuizPage> {
         ),
       ],
     );
+  }
+
+  void checkAnswer(bool userPickedAnswer) {
+    bool correctAnswer = quizBrain.getQuestionAnswer();
+
+    Icon resultIcon;
+
+    if (correctAnswer == userPickedAnswer) {
+      resultIcon = Icon(
+        Icons.check,
+        color: Colors.green,
+      );
+    } else {
+      resultIcon = Icon(
+        Icons.close,
+        color: Colors.red,
+      );
+    }
+
+    setState(() {
+      if (quizBrain.isFinished()) {
+        // mostra tela de fim de jogo
+        Alert(
+          context: context,
+          type: AlertType.info,
+          title: 'Fim de Jogo!',
+          desc: 'Você chegou ao fim do quiz.',
+          buttons: [
+            DialogButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              width: 120.0,
+              child: Text(
+                'Ok',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                ),
+              ),
+            ),
+          ],
+        ).show();
+        // reseta o jogo
+        quizBrain.reset();
+        scoreKeeper = [];
+      } else {
+        scoreKeeper.add(resultIcon);
+        quizBrain.nextQuestion();
+      }
+    });
   }
 }
