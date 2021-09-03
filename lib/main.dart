@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_flutter/question.dart';
 
 void main() {
   runApp(Quiz());
@@ -32,12 +33,14 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
-  List<String> questions = [
-    'Alguns gatos são alérgicos a humanos',
-    'É possível fazer com que uma vaca suba escadas, mas não descê-las.',
-    'Aproximadamente um quarto dos ossos humanos estão nos pés.',
+  List<Question> questions = [
+    Question('Alguns gatos são alérgicos a humanos', true),
+    Question(
+        'É possível fazer com que uma vaca suba escadas, mas não descê-las.',
+        false),
+    Question(
+        'Aproximadamente um quarto dos ossos humanos estão nos pés.', true),
   ];
-  List<bool> answers = [true, false, true];
   int questionNumber = 0;
 
   @override
@@ -52,7 +55,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questions[questionNumber],
+                questions[questionNumber].text,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -78,7 +81,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 setState(() {
-                  bool correctAnswer = answers[questionNumber];
+                  bool correctAnswer = questions[questionNumber].answer;
                   if (correctAnswer == true) {
                     print('Acertou!');
                   } else {
@@ -107,7 +110,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 setState(() {
-                  bool correctAnswer = answers[questionNumber];
+                  bool correctAnswer = questions[questionNumber].answer;
                   if (correctAnswer == false) {
                     print('Acertou!');
                   } else {
