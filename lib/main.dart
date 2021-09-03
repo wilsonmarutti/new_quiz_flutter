@@ -37,6 +37,7 @@ class _QuizPageState extends State<QuizPage> {
     'É possível fazer com que uma vaca suba escadas, mas não descê-las.',
     'Aproximadamente um quarto dos ossos humanos estão nos pés.',
   ];
+  List<bool> answers = [true, false, true];
   int questionNumber = 0;
 
   @override
@@ -77,16 +78,15 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 setState(() {
+                  bool correctAnswer = answers[questionNumber];
+                  if (correctAnswer == true) {
+                    print('Acertou!');
+                  } else {
+                    print('Errou!');
+                  }
                   questionNumber++;
                   print(questionNumber);
-                  scoreKeeper.add(
-                    Icon(
-                      Icons.check,
-                      color: Colors.green,
-                    ),
-                  );
                 });
-                print('Verdadeiro foi pressionado.');
               },
             ),
           ),
@@ -107,16 +107,15 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 setState(() {
+                  bool correctAnswer = answers[questionNumber];
+                  if (correctAnswer == false) {
+                    print('Acertou!');
+                  } else {
+                    print('Errou!');
+                  }
                   questionNumber++;
                   print(questionNumber);
-                  scoreKeeper.add(
-                    Icon(
-                      Icons.close,
-                      color: Colors.red,
-                    ),
-                  );
                 });
-                print('Falso foi pressionado.');
               },
             ),
           ),
