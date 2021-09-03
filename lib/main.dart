@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_flutter/question.dart';
+import 'package:quiz_flutter/quiz_brain.dart';
 
 void main() {
   runApp(Quiz());
@@ -32,15 +32,10 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  QuizBrain quizBrain = QuizBrain();
+
   List<Icon> scoreKeeper = [];
-  List<Question> questions = [
-    Question('Alguns gatos são alérgicos a humanos', true),
-    Question(
-        'É possível fazer com que uma vaca suba escadas, mas não descê-las.',
-        false),
-    Question(
-        'Aproximadamente um quarto dos ossos humanos estão nos pés.', true),
-  ];
+
   int questionNumber = 0;
 
   @override
@@ -55,7 +50,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questions[questionNumber].text,
+                quizBrain.questionBank[questionNumber].text,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -81,7 +76,8 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 setState(() {
-                  bool correctAnswer = questions[questionNumber].answer;
+                  bool correctAnswer =
+                      quizBrain.questionBank[questionNumber].answer;
                   if (correctAnswer == true) {
                     print('Acertou!');
                   } else {
@@ -110,7 +106,8 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 setState(() {
-                  bool correctAnswer = questions[questionNumber].answer;
+                  bool correctAnswer =
+                      quizBrain.questionBank[questionNumber].answer;
                   if (correctAnswer == false) {
                     print('Acertou!');
                   } else {
